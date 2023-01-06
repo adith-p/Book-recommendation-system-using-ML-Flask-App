@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect, url_for
 
 import pandas as pd
 import numpy as np
@@ -35,7 +35,11 @@ def recommend_ui():
 def recommend():
     user_input = request.form.get('user_input')
 
-    index = np.where(pt.index == user_input)[0][0]
+    result = np.where(pt.index == user_input)
+    if len(result[0]) == 0:
+        # Handle error here
+        return "Error:Book not Indexed or Book Not Found"
+    index = result[0][0]
 
     similar_items = sorted(list(enumerate(similarity_Score[index])), key=lambda x: x[1], reverse=True)[1:9]
     data = []
@@ -50,6 +54,28 @@ def recommend():
     print(data)
 
     return render_template('recommend.html', data=data)
+
+
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == 'POST':
+        # Get form data
+
+        username = request.form['username']
+        password = request.form['password']
+        print(f"{username}and{password}")
+
+        # Save user to database
+
+        # Redirect to login page
+        return redirect(url_for('login'))
+
+    return render_template('register.html')
+
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
 
 
 if __name__ == '__main__':

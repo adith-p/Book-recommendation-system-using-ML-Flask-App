@@ -11,6 +11,8 @@
   .text-black{
   color:black
   }
+
+
 </style>
 <body>
 <nav class="navbar navbar-expand-sm bg-light">
@@ -37,10 +39,10 @@
 <div class="container">
   <div class="row">
     <div class="col-12">
-      <h1 class="text-black" style="font-size:25px,margin-top:30px" >recommendations</h1>
+      <h1 class="text-black" style="font-size:25px,margin-top:30px" >Recommendations</h1>
       <form action="/recommend_books"  method="post">
           <input type="text" class="form-control" name="user_input"><br>
-          <input type="submit" class="btn btn-lg btn-warning">
+          <input style = "border-radius:25px" type="submit" class="btn btn-primary" >
       </form>
     </div>
 
@@ -51,7 +53,7 @@
         <div class="card-body">
 
           <img class="card-img-top" src="{{i[2]}}">
-           <a href="https://www.amazon.in/s?k={{i[0]}}"><h3>{{i[0]}}</h3></a>
+           <a href="https://www.amazon.in/s?k={{i[0]}}"><h5>{{i[0]}}</h5></a>
 
           <p>author - {{i[1]}}</p>
 
