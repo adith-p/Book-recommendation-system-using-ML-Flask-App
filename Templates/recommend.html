@@ -1,73 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Book Recommendation System</title>
     <!-- CSS only -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
+
 <style>
-  .text-black{
-  color:black
+  .text-black {
+    color: white
+  }
+
+  .card-body {
+    background-color: #323436;
+    border-color: #323436;
+  }
+
+  .card {
+    background-color: white;
+    border: none;
+  }
+
+  body {
+    background-color: #323436;
+  }
+
+  .container {
+    padding: 2rem 0rem;
+  }
+
+  h4 {
+    margin: 2rem 0rem 1rem;
+  }
+
+  .table-image {
+
+    td,
+    th {
+      vertical-align: middle;
+    }
+  }
+
+  .book_table {
+    background-color: white;
+  }
+
+  .book_table-header {
+
+    color: white;
+
   }
 
 
-</style>
-<body>
-<nav class="navbar navbar-expand-sm bg-light">
-  <a class="navbar-brand">Booksy</a>
 
+</style>
+
+<body>
+<!--
+<nav class="navbar navbar-expand-sm bg-light">
+<a class="navbar-brand">Booksy</a>
+
+      <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+              <a class="nav-link" href="/">
+                Home
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="/recommend">
+                Recommend
+              </a>
+          </li>
+          <li class="nav-item">
+              <a class="nav-link" href="#">
+                contact Us
+              </a>
+          </li>
+      </ul>
+  </nav>
+  -->
+
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">
+        <img src="/static/images/book-basket.png" width="38" height="38" alt="Book Basket">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
-                <a class="nav-link" href="/">
-                  Home
-                </a>
+                <a class="nav-link" href="/top50">Top 50</a>
             </li>
+
             <li class="nav-item">
-                <a class="nav-link" href="/recommend">
-                  Recommend
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                  contact Us
-                </a>
+                <a class="nav-link" href="/login">Sign In</a>
             </li>
         </ul>
-    </nav>
+    </div>
+</nav>
+
+
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1 class="text-black" style="font-size:25px,margin-top:30px" >Recommendations</h1>
-      <form action="/recommend_books"  method="post">
-          <input type="text" class="form-control" name="user_input"><br>
-          <input style = "border-radius:25px" type="submit" class="btn btn-primary" >
-      </form>
-    </div>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="text-black" style="font-size:25px,margin-top:30px">Recommend</h1>
+            <form action="/recommend_books" method="post">
+                <input type="text" class="form-control" name="user_input" required><br>
+                <input style="border-radius:25px ;color:black;background-color:white; border-color:none" type="submit"
+                       class="btn btn-outline-dark">
 
-    {%if data%}
-      {%for i in data%}
-      <div class="col-3" style="margin-top:30px">
-      <div class="card">
-        <div class="card-body">
-
-          <img class="card-img-top" src="{{i[2]}}">
-           <a href="https://www.amazon.in/s?k={{i[0]}}"><h5>{{i[0]}}</h5></a>
-
-          <p>author - {{i[1]}}</p>
-
+            </form>
         </div>
-      </div>
-
     </div>
-      {%endfor%}
-      {%endif%}
-
-
-
-
-  </div>
 </div>
+
+
+<div class="container">
+
+
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-image">
+                <thead>
+                <tr class="book_table-header">
+                    <th scope="col">id</th>
+                    <th scope="col">Cover</th>
+                    <th scope="col">Book Name</th>
+                    <th scope="col">Author</th>
+
+                </tr>
+                </thead>
+                {%if data%}
+                {% for i in data %}
+                <tbody>
+
+                <div>
+
+
+                    <tr class="book_table">
+                        <th scope="row">{{loop.index}}</th>
+                        <td class="w-25">
+                            <a href="https://www.amazon.in/s?k={{i[0]}}">
+                                <img src={{i[2]}} class="img-fluid img-thumbnail" alt="{{i[0]}}">
+                            </a>
+                        </td>
+                        <td>{{i[0]}}</td>
+                        <td>{{i[1]}}</td>
+
+                    </tr>
+                    {%endfor%}
+                    {%endif%}
+
+                </div>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+
 </body>
+
 </html>
