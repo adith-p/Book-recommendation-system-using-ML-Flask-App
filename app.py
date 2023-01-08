@@ -14,11 +14,6 @@ app = Flask(__name__, template_folder='templates')
 
 
 @app.route('/')
-def landing():
-    return render_template('home.html')
-
-
-@app.route('/top50')
 def index():
     return render_template('index.html',
                            book_name=list(popular_df['Book-Title'].values),
@@ -38,13 +33,12 @@ def recommend_ui():
 
 @app.route('/recommend_books', methods=['POST'])
 def recommend():
-
     user_input = request.form.get('user_input')
 
     result = np.where(pt.index == user_input)
     if len(result[0]) == 0:
         # Handle error here
-        return "Error: Book not in database"
+        return "Error:Book not Indexed or Book Not Found"
     index = result[0][0]
 
     similar_items = sorted(list(enumerate(similarity_Score[index])), key=lambda x: x[1], reverse=True)[1:9]
@@ -82,11 +76,6 @@ def register():
 @app.route('/login')
 def login():
     return render_template('login.html')
-
-
-@app.route('/home')
-def home():
-    return render_template('home.html')
 
 
 if __name__ == '__main__':
