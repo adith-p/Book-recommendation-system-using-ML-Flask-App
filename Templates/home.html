@@ -1,10 +1,52 @@
-<!DOCTYPE html>
-<html lang="en">
+<!-- templates/landing.html -->
+
+<!doctype html>
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <title>Welcome to Book Recommendations</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <!-- Custom CSS -->
+
 </head>
 <body>
-$END$
+<style>
+        body {
+  background-color: #323436;
+}
+.navbar {
+  background-color: #ADB0B2;
+}
+
+</style>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">
+        <img src="/static/images/book-basket.png" width="38" height="38" alt="Book Basket">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/top50">Top 50</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/login">Sign In</a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container mt-5 text-center">
+    <img src="/static/images/book-basket.png" width="100" height="100" alt="Book Basket">
+    <h1 class="text-white">Welcome to Book Recommendations</h1>
+    <p class="text-white">This app helps you find new books to read by recommending similar books to ones you already
+        enjoy.</p>
+    <p class="text-white">To get started, visit the <a href="/recommend" class="text-purple">recommendations</a> page
+        and enter the title of a book you like.</p>
+</div>
 </body>
 </html>
