@@ -42,6 +42,11 @@
         </ul>
     </div>
 </nav>
+<form method="POST" action="{{ url_for('search') }}">
+    <input type="text" name="search_query" placeholder="Search for a book" required>
+    <button type="submit">Search</button>
+</form>
+
 <div class="container mt-5 text-center">
     <img src="/static/images/book-basket.png" width="100" height="100" alt="Book Basket">
     <h1 class="text-white">Welcome to Book Recommendations</h1>
@@ -50,6 +55,6 @@
     <p class="text-white">To get started, visit the <a href="/recommend" class="text-purple">recommendations</a> page
         and enter the title of a book you like.</p>
 </div>
-$END$
+
 </body>
 </html>

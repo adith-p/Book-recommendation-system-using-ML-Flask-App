@@ -43,7 +43,7 @@ def recommend():
     result = np.where(pt.index == user_input)
     if len(result[0]) == 0:
         # Handle error here
-        return "Error: Book not in database"
+        return render_template('Book_not_found.html', user_input=user_input)
     index = result[0][0]
 
     similar_items = sorted(list(enumerate(similarity_Score[index])), key=lambda x: x[1], reverse=True)[1:9]
@@ -86,6 +86,32 @@ def login():
 @app.route('/home')
 def home():
     return render_template('home.html')
+
+
+@app.route('/book-details')
+def book_details():
+    return render_template('one-site.html')
+
+
+@app.route('/search', methods=['POST'])
+def search():
+    search_query = request.form.get('search_query')
+    search_results = books[books['Book-Title'].str.contains(search_query, case=False)]
+    if search_results.empty:
+        return render_template('Book_not_found.html', user_input=search_query)
+    else:
+        return render_template('search.html', search_results=search_results)
+
+
+@app.errorhandler(404)
+def error_handle(e):
+    return render_template('404.html'), 404
+
+
+# @app.route('/book-info/<book_id>')
+# def book_info(book_id):
+#   book = get_book_by_id(book_id)  # retrieve book information
+#  return render_template('one-site.html', book=book)
 
 
 if __name__ == '__main__':
