@@ -31,6 +31,7 @@ def index():
                            )
 
 
+
 @app.route('/recommend')
 def recommend_ui():
     return render_template('recommend.html')
