@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>search</title>
+</head>
+<body>
+{% for result in search_results.iterrows() %}
+    <div>
+        <h3>{{ result['Book-Title'] }}</h3>
+        <p>{{ result['Book-Author'] }}</p>
+        <img src="{{ result['Image-URL-M'] }}">
+    </div>
+{% endfor %}
+
+
+</body>
+</html>
