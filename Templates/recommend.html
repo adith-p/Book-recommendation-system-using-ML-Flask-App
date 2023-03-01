@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
+
 </head>
 
 <style>
@@ -57,9 +58,13 @@
 
 
 
+
+
 </style>
 
 <body>
+
+
 <!--
 <nav class="navbar navbar-expand-sm bg-light">
 <a class="navbar-brand">Booksy</a>
@@ -83,7 +88,9 @@
       </ul>
   </nav>
   -->
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="/home">
@@ -91,17 +98,36 @@
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <span class="navbar-toggler-icon">&times;</span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('browse_books') }}">Browse Books</a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/top50">Top 50</a>
             </li>
 
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Sign In</a>
+            {% if current_user.is_authenticated %}
+            <li class="nav-item dropdown">
+                <div class="dropdown">
+                    <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="static" aria-expanded="false">
+                        {{ current_user.username }}
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li><a class="dropdown-item" href="{{ url_for('dashboard') }}">My Profile</a></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}">Logout</a></li>
+
+                    </ul>
+                </div>
+
             </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{{ url_for('login') }}">Sign In</a>
+            </li>
+            {% endif %}
         </ul>
     </div>
 </nav>
@@ -117,6 +143,28 @@
                        class="btn btn-outline-dark">
 
             </form>
+            <br>
+            <!--{% for message in get_flashed_messages() %}
+                <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Holy guacamole!</strong> {{user_input}}.
+                 <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+                 </button>
+                </div>
+            {% endfor %} -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for message in messages %}
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Sorry</strong> {{ message }}
+                <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
+
         </div>
     </div>
 </div>
@@ -147,7 +195,7 @@
                     <tr class="book_table">
                         <th scope="row">{{loop.index}}</th>
                         <td class="w-25">
-                            <a href="#">
+                            <a href="{{url_for('req',search_term=i[0])}}">
                                 <img src={{i[2]}} class="img-fluid img-thumbnail" alt="{{i[0]}}">
                             </a>
                         </td>

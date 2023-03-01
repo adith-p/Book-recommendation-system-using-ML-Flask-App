@@ -1,93 +1,46 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Log In</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-</head>
-<body>
-<style>
-html,
-body {
-    height: 100%;
-}
+{% extends 'base.html' %}
 
-.global-container {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgb(238,174,202);
-background: radial-gradient(circle, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
-}
+{% block content %}
 
-form {
-    padding-top: 10px;
-    font-size: 14px;
-    margin-top: 30px;
-}
+{% for message in get_flashed_messages() %}
 
-.card-title {
-    font-weight: 300;
-}
-
-.btn {
-    font-size: 14px;
-    margin-top: 20px;
-}
-
-.login-form {
-    width: 330px;
-    margin: 20px;
-}
-
-.sign-up {
-    text-align: center;
-    padding: 20px 0 0;
-}
-
-.alert {
-    margin-bottom: -30px;
-    font-size: 13px;
-    margin-top: 20px;
-}
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+	  {{ message }}
+	  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
 
 
-</style>
+{% endfor %}
 
-<div class="global-container">
-    <div class="card login-form">
-        <div class="card-body">
-            <h3 class="card-title text-center">Log in to Booksy</h3>
-            <div class="card-text">
-                <!--
-            <div class="alert alert-danger alert-dismissible fade show"
-             role="alert">Incorrect username or password.</div> -->
-                <form>
-                    <!-- to error: add class "has-danger" -->
-                    <div class="form-group">
-                        <label for="user-email">Email address</label>
-                        <input type="email" class="form-control form-control-sm"
-                               id="user-email" name="username" aria-describedby="emailHelp">
-                    </div>
-                    <div class="form-group">
-                        <label for="password">Password</label>
-                        <a href="#" style="float:right;font-size:12px;">Forgot password?
-                        </a>
-                        <input type="password" class="form-control form-control-sm"
-                               id="password" name="password">
-                    </div>
-                    <button type="submit" class="btn btn-primary btn-block">Signin</button>
 
-                    <div class="sign-up">
-                        Don't have an account?
-                        <a href="/register">Create One</a>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
+
+	<h1>Login!</h1>
+	<br/><br/>
+
+
+
+<div class="shadow p-3 mb-5 bg-body rounded">
+	<form method="POST">
+		{{ form.hidden_tag() }}
+
+		{{ form.username.label(class="form-label") }}
+
+		{{ form.username(class="form-control") }}
+		<br/>
+
+		{{ form.password.label(class="form-label") }}
+
+		{{ form.password(class="form-control") }}
+		<br/>
+
+
+		<br/>
+
+		{{ form.submit(class="btn btn-secondary") }}
+
+
+	</form>
 </div>
-<a href="/recommend">home</a>
-</body>
-</html>
+
+
+{% endblock %}
